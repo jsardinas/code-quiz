@@ -1,0 +1,47 @@
+/* *{
+    border: 1px solid black;
+} */
+
+body{
+    --main-color: #fee;
+    --accent: darkorange;
+    display: flex;
+    justify-content: center;
+}
+
+main{
+    background-color: var(--main-color);
+    min-width: 500px;
+    min-height: 500px;
+    border: 1px solid var(--accent);
+    border-radius: 5%;
+    padding: 10px;
+    text-align: center;
+    margin: 40px;
+}
+
+.main-menu{
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: center;
+    padding-top: 120px;
+}
+
+.start-btn{
+    background-color: var(--accent);
+    color: white;
+    border-radius: 20px;
+    font-size: 28px;
+    padding: 20px;
+    margin: 20px;
+    font-weight: 800;
+}
+
+.highscore-btn{
+    background-color: var(--accent);
+    color: white;
+    border-radius: 15px;
+    font-size: 18px;
+    padding: 10px;
+    margin: 40px;
+}
