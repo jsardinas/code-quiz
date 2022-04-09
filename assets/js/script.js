@@ -2,7 +2,7 @@
 var optionsSize = 4;
 var nextQuestionTimeout = 2000;
 var score = 0;
-var gameTime = 30;
+var gameTime = 5;
 var refreshRate = 1;
 
 //elements
@@ -15,6 +15,10 @@ var questionP;
 var timer;
 var liArray = Array(optionsSize);
 var timeHandlerId;
+var gameOverView;
+var highScoresView;
+var scoreP;
+var highScoresTable;
 
 
 function createMenu(){
@@ -64,14 +68,93 @@ function createTrivia(size){
     triviaDiv.append(answers);
 }
 
+function createGameOverView(){
+    gameOverView = document.createElement('div');
+    gameOverView.className = 'game-over';
+    
+    let h1 = document.createElement('h1');
+    h1.textContent = 'Game Over!';
+
+    let h2 = document.createElement('h2');
+    h2.textContent = 'Enter your name to save your score';
+
+    let form = document.createElement('form');
+    
+    let nameDiv = document.createElement('div');
+    nameDiv.className = 'name';
+
+    let name = document.createElement('input');
+    name.setAttribute('type', 'text');
+    name.setAttribute('placeholder', 'Your name here');
+    name.setAttribute('id', 'name-input')
+
+    scoreP = document.createElement('p');
+
+    let submit = document.createElement('input');
+    submit.setAttribute('type', 'submit');
+    submit.setAttribute('value', 'Save');
+
+    form.onsubmit = saveScore;
+
+    nameDiv.append(name);
+    nameDiv.append(scoreP);
+
+    form.append(nameDiv);
+    form.append(submit);
+
+    gameOverView.append(h1);
+    gameOverView.append(h2);
+    gameOverView.append(form);
+}
+
+function createHighScoresView(){
+    highScoresView = document.createElement('div');
+    highScoresView.className = 'high-scores';
+
+    let h1 = document.createElement('h1');
+    h1.textContent = 'High Scores';
+
+    highScoresTable = document.createElement('table');
+
+    let menuBtn = document.createElement('button');
+    menuBtn.textContent = 'Main Menu';
+    menuBtn.onclick = mainMenu;
+
+    highScoresView.append(h1);
+    highScoresView.append(highScoresTable);
+    highScoresView.append(menuBtn);
+}
+
+function mainMenu(){
+    displayView(menuDiv);
+}
+
+function saveScore(event){
+    event.preventDefault();
+    const name = document.querySelector('#name-input').value;
+    let hs = window.localStorage.getItem('highScores');
+    hsPair = {'name':name, 'hs':score}
+    if(hs == null || hs == undefined)
+        hs = [hsPair];
+    else{
+        hs = JSON.parse(hs);
+        console.log(hs);
+        hs.push(hsPair);
+    }
+    window.localStorage.setItem('highScores', JSON.stringify(hs));
+    showHighScores();
+}
+
 function initComponents(){
 
     createMenu();
     createTrivia(optionsSize);
+    createGameOverView();
+    createHighScoresView();
 
     mainArea = document.querySelector("main");
 
-    displayView(menuDiv);
+    mainMenu();
 }
 
 function displayView(view){
@@ -83,7 +166,7 @@ function displayView(view){
 
 function timerHandler(){
     if(--gameTime == 0){
-        alert('game over');
+        gameOver();
         window.clearInterval(timeHandlerId);
     }
     else
@@ -126,7 +209,30 @@ function wrongAnswer(event){
 }
 
 function showHighScores(){
+    //clear table
+    while (highScoresTable.firstChild) {
+        highScoresTable.removeChild(highScoresTable.firstChild);
+    }
+    let hs = window.localStorage.getItem('highScores');
+    if (hs != null || hs != undefined){
+        hs = JSON.parse(hs);
+        for (item of hs){
+            let tr = document.createElement('tr');
+            let tdLeft = document.createElement('td');
+            tdLeft.textContent = item['name'];
+            tr.append(tdLeft);
+            let tdRight = document.createElement('td');
+            tdRight.textContent = item['hs'];
+            tr.append(tdRight);
+            highScoresTable.append(tr);
+        }
+    }
+    displayView(highScoresView);
+}
 
+function gameOver(){
+    scoreP.textContent = `Score: ${score}`
+    displayView(gameOverView);
 }
 
 window.onload = initComponents;

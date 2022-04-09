@@ -70,7 +70,7 @@ main{
     margin: 20px;
     border-radius: 20px;
     width: fit-content;
-    min-width: 40px;
+    min-width: 80px;
 }
 
 .unanswered:hover{
@@ -89,4 +89,34 @@ main{
 
 .wrong-answer{
     background-color: lightcoral;
+}
+
+.game-over{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.name{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+form *{
+    margin: 10px;
+}
+
+.high-scores{
+    text-align: left;
+}
+
+.scores-div{
+    display: flex;
 }
