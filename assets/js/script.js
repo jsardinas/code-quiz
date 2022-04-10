@@ -7,6 +7,7 @@ var penalty = 5;
 var actualTime;
 var refreshRate = 1;
 var maxSavedScores = 12;
+var questions;
 
 //elements
 var mainArea;
@@ -194,8 +195,8 @@ function displayView(view){
 
 function timerHandler(){
     if(--actualTime == 0){
-        gameOver();
         window.clearInterval(timeHandlerId);
+        gameOver();
     }
     else
         timer.textContent = actualTime;
@@ -205,13 +206,18 @@ function playGame(){
     actualTime = gameTime;
     timer.textContent = actualTime;
     score = 0;
+    questions = questionsDB;
     displayView(triviaDiv);
     timeHandlerId = window.setInterval(timerHandler, 1000*refreshRate);
     showQuestion();
 }
 
 function showQuestion(){
-    let nextQuestion = getRandomItem(questions);
+    if (questions.length == 0){
+        gameOver();
+        return;
+    }
+    let nextQuestion = getAndRemoveRandomItem(questions);
     questionP.textContent = nextQuestion['question'];
     let s = getRandomInt(optionsSize);
     liArray[s].textContent = nextQuestion['answer'];
@@ -293,7 +299,7 @@ function getRandomInt(max){
 }
 
 /*Data*/
-var questions = [
+var questionsDB = [
     {
         'question': 'What does HTML stand for?',
         'answer': 'Hyper Text Markup Language',
