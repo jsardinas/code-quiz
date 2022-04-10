@@ -75,7 +75,7 @@ main{
 
 .unanswered:hover{
     color: white;
-    background-color: darkgoldenrod;
+    background-color: #fba020;
     font-weight: 800;
 }
 
@@ -85,10 +85,12 @@ main{
 
 .right-answer{
     background-color: #1bae39;
+    font-weight: 800;
 }
 
 .wrong-answer{
     background-color: #f28693;
+    font-weight: 800;
 }
 
 .game-over{
