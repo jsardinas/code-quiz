@@ -12,6 +12,7 @@ body{
 main{
     background-color: var(--main-color);
     min-width: 500px;
+    max-width: 500px;
     min-height: 500px;
     border: 1px solid var(--accent);
     border-radius: 5%;
