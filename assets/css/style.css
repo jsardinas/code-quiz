@@ -120,3 +120,25 @@ form *{
 .scores-div{
     display: flex;
 }
+#hstable{
+    border-collapse: collapse;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+#hstable td, #hstable th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+#hstable tr:nth-child(even){background-color: #f2f2f2;}
+
+#hstable tr:hover {background-color: #ddd;}
+
+th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: var(--accent);
+    color: white;
+  }

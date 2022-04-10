@@ -2,8 +2,10 @@
 var optionsSize = 4;
 var nextQuestionTimeout = 2000;
 var score = 0;
-var gameTime = 5;
+var gameTime = 10;
+var actualTime;
 var refreshRate = 1;
+var maxSavedScores = 12;
 
 //elements
 var mainArea;
@@ -47,7 +49,7 @@ function createTrivia(size){
 
     timer = document.createElement('p');
     timer.className = 'timer';
-    timer.textContent = gameTime;
+    timer.textContent = actualTime;
 
     questionP = document.createElement('p');
     questionP.className = 'question';
@@ -115,6 +117,17 @@ function createHighScoresView(){
     h1.textContent = 'High Scores';
 
     highScoresTable = document.createElement('table');
+    highScoresTable.id = 'hstable';
+
+    let th = document.createElement('tr');
+    let tdUser = document.createElement('th');
+    tdUser.textContent = 'User';
+    let tdScore = document.createElement('th');
+    tdScore.textContent = 'Score';
+    th.append(tdUser)
+    th.append(tdScore)
+    highScoresTable.append(th);
+
 
     let menuBtn = document.createElement('button');
     menuBtn.textContent = 'Main Menu';
@@ -131,17 +144,31 @@ function mainMenu(){
 
 function saveScore(event){
     event.preventDefault();
-    const name = document.querySelector('#name-input').value;
+    var nameElement = document.querySelector('#name-input');
+    const name = nameElement.value;
     let hs = window.localStorage.getItem('highScores');
     hsPair = {'name':name, 'hs':score}
     if(hs == null || hs == undefined)
         hs = [hsPair];
     else{
         hs = JSON.parse(hs);
+        let found = false;
+        for (let i = 0; i < hs.length && !found; ++i)
+            if (hs[i]['name'] == name){
+                found = true;
+                if (hs[i]['hs'] < score)
+                    hs[i]['hs'] = score;
+            }
+        if (!found)
+            hs.push(hsPair);
         console.log(hs);
-        hs.push(hsPair);
+        hs.sort((a,b) => {return b['hs'] - a['hs'];});
+        console.log(hs);
+        if (hs.length > maxSavedScores)
+            hs.splice(12);
     }
     window.localStorage.setItem('highScores', JSON.stringify(hs));
+    nameElement.value = '';
     showHighScores();
 }
 
@@ -165,15 +192,18 @@ function displayView(view){
 }
 
 function timerHandler(){
-    if(--gameTime == 0){
+    if(--actualTime == 0){
         gameOver();
         window.clearInterval(timeHandlerId);
     }
     else
-        timer.textContent = gameTime;
+        timer.textContent = actualTime;
 }
 
 function playGame(){
+    actualTime = gameTime;
+    timer.textContent = actualTime;
+    score = 0;
     displayView(triviaDiv);
     timeHandlerId = window.setInterval(timerHandler, 1000*refreshRate);
     showQuestion();
@@ -195,7 +225,6 @@ function showQuestion(){
 }
 
 function rightAnswer(event){
-    console.log(event);
     event.target.classList.remove('unanswered');
     event.target.classList.add('right-answer');
     score++;
@@ -210,8 +239,8 @@ function wrongAnswer(event){
 
 function showHighScores(){
     //clear table
-    while (highScoresTable.firstChild) {
-        highScoresTable.removeChild(highScoresTable.firstChild);
+    while (highScoresTable.childNodes.length > 1) {
+        highScoresTable.removeChild(highScoresTable.lastChild);
     }
     let hs = window.localStorage.getItem('highScores');
     if (hs != null || hs != undefined){
