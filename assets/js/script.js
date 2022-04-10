@@ -2,7 +2,8 @@
 var optionsSize = 4;
 var nextQuestionTimeout = 2000;
 var score = 0;
-var gameTime = 10;
+var gameTime = 30;
+var penalty = 5;
 var actualTime;
 var refreshRate = 1;
 var maxSavedScores = 12;
@@ -88,7 +89,7 @@ function createGameOverView(){
     let name = document.createElement('input');
     name.setAttribute('type', 'text');
     name.setAttribute('placeholder', 'Your name here');
-    name.setAttribute('id', 'name-input')
+    name.id = 'name-input';
 
     scoreP = document.createElement('p');
 
@@ -224,7 +225,13 @@ function showQuestion(){
     }
 }
 
+function removeOnClick(array){
+    for(item of array)
+        item.onclick = null;
+}
+
 function rightAnswer(event){
+    removeOnClick(liArray);
     event.target.classList.remove('unanswered');
     event.target.classList.add('right-answer');
     score++;
@@ -232,8 +239,10 @@ function rightAnswer(event){
 }
 
 function wrongAnswer(event){
+    removeOnClick(liArray);
     event.target.classList.remove('unanswered');
     event.target.classList.add('wrong-answer');
+    actualTime -= penalty;
     window.setTimeout(showQuestion, nextQuestionTimeout);
 }
 
