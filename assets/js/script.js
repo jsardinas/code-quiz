@@ -198,8 +198,11 @@ function timerHandler(){
         window.clearInterval(timeHandlerId);
         gameOver();
     }
-    else
+    else{
         timer.textContent = actualTime;
+        let w = Math.floor(100*actualTime/gameTime);
+        timer.setAttribute('style', `width:${w}%`)
+    }
 }
 
 function playGame(){
