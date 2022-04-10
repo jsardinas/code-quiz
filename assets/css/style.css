@@ -3,7 +3,7 @@
 } */
 
 body{
-    --main-color: #fee;
+    --main-color: #FFD4B7;
     --accent: darkorange;
     display: flex;
     justify-content: center;
@@ -84,11 +84,11 @@ main{
 }
 
 .right-answer{
-    background-color: green;
+    background-color: #1bae39;
 }
 
 .wrong-answer{
-    background-color: lightcoral;
+    background-color: #f28693;
 }
 
 .game-over{

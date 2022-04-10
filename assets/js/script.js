@@ -2,7 +2,7 @@
 var optionsSize = 4;
 var nextQuestionTimeout = 2000;
 var score = 0;
-var gameTime = 300;
+var gameTime = 160;
 var penalty = 5;
 var actualTime;
 var refreshRate = 1;
