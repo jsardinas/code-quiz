@@ -2,7 +2,7 @@
 var optionsSize = 4;
 var nextQuestionTimeout = 2000;
 var score = 0;
-var gameTime = 30;
+var gameTime = 300;
 var penalty = 5;
 var actualTime;
 var refreshRate = 1;
@@ -319,5 +319,122 @@ var questions = [
             'h4',
             'h5',
             'h6']
+    },
+    {
+        'question': 'Inside which HTML element do we put the JavaScript?',
+        'answer': '<script>',
+        'wrong_answers':[
+            '<js>',
+            '<javascript>',
+            '<scripting>',
+            '<code>']
+    },
+    {
+        'question': 'Where is the correct place to insert a JavaScript?',
+        'answer': 'Both <head> and <body>',
+        'wrong_answers':[
+            'The <head> section',
+            'The <body> section',
+            'Neither <head> or <body>']
+    },
+    {
+        'question': 'What is the correct syntax for referring to an external script called "code.js"?',
+        'answer': '<script src="code.js">',
+        'wrong_answers':[
+            '<script name="code.js">',
+            '<script href="code.js">',
+            '<script link="code.js">',
+            '<script code="code.js">']
+    },
+    {
+        'question': 'How can you add a comment in a JavaScript?',
+        'answer': '//This is a coment',
+        'wrong_answers':[
+            '#This is a coment',
+            '```This is a coment',
+            '<!--This is a coment-->',
+            '--This is a coment']
+    },
+    {
+        'question': 'What is the correct way to write a JavaScript array?',
+        'answer': 'var colors = ["red", "green", "blue"]',
+        'wrong_answers':[
+            'var colors = ("red", "green", "blue")',
+            'var colors = {"red", "green", "blue"}',
+            'var colors = "red", "green", "blue"',
+            'var colors = 1="red", 2="green", 3="blue"]']
+    },
+    {
+        'question': 'Which operator is used to assign a value to a variable?',
+        'answer': '=',
+        'wrong_answers':[
+            '*',
+            '+',
+            '-',
+            '/',
+            'x']
+    },
+    {
+        'question': 'What is the correct HTML element for inserting a line break?',
+        'answer': '<br>',
+        'wrong_answers':[
+            '<lb>',
+            '<break>',
+            '<line>']
+    },
+    {
+        'question': 'How can you open a link in a new tab/browser window?',
+        'answer': '<a href="url" target="_blank">',
+        'wrong_answers':[
+            '<a href="url" target="new">',
+            '<a href="url">',
+            '<a href="url" new>',
+            '<a href="url" _blank>',
+            '<a href="url" window="_blank">',
+            '<a href="url" window="new">']
+    },
+    {
+        'question': 'Which is the correct CSS syntax?',
+        'answer': 'body{color:black}',
+        'wrong_answers':[
+            '{body;color:black}',
+            '{body:color=black}',
+            'body:color=black']
+    },
+    {
+        'question': 'How do you select an element with id "demo" in CSS?',
+        'answer': '#demo',
+        'wrong_answers':[
+            '.demo',
+            'demo',
+            '*demo']
+    },
+    {
+        'question': 'How do you select an element with class name "demo" in CSS?',
+        'answer': '.demo',
+        'wrong_answers':[
+            '#demo',
+            'demo',
+            '*demo']
+    },
+    {
+        'question': 'What is the default value of the position property?',
+        'answer': 'static',
+        'wrong_answers':[
+            'relative',
+            'fixed',
+            'absolute']
+    },
+    {
+        'question': 'Which sign does jQuery use as a shortcut for jQuery?',
+        'answer': '$',
+        'wrong_answers':[
+            '#',
+            '@',
+            '!',
+            '%',
+            '^',
+            '&',
+            '*']
     }
 ];
